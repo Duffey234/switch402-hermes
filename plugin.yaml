@@ -1,0 +1,37 @@
+name: switch402
+version: 0.1.0
+manifest_version: 2
+api_version: 1
+description: "switch402 web data tools for Hermes: page to markdown (full and lite), site map, page metadata, screenshots and web search from api.switch402.com, paid per call in USDC on Base via x402, plus a free price and health quote. Every paid call asks you first and stays under a per-request spend cap; payment is off in cron and other unattended runs."
+author: switch402
+license: MIT
+homepage: https://github.com/Duffey234/switch402-hermes
+tags: ["web", "scrape", "markdown", "screenshot", "search", "x402", "usdc", "base"]
+requires_hermes: ">=0.21.5"
+provides_tools:
+  - s402_quote
+  - s402_scrape
+  - s402_lite
+  - s402_screenshot
+  - s402_search
+  - s402_map
+  - s402_metadata
+provides_hooks:
+  - pre_tool_call
+  - post_approval_response
+requires_env:
+  - name: SWITCH402_WALLET_KEY
+    description: "Private key of a Base wallet holding a small amount of USDC. Used only on your machine to sign one x402 payment per approved paid call. Never sent anywhere and never logged. s402_quote works without it."
+    url: "https://switch402.com/"
+    secret: true
+config_schema:
+  max_spend_usd:
+    type: float
+    default: 0.02
+    label: "Max spend per request (USD)"
+    description: "Hard ceiling for a single paid call. A call whose price is above it is refused before any approval prompt or signature."
+  timeout_seconds:
+    type: int
+    default: 60
+    label: "HTTP timeout (seconds)"
+    description: "Timeout for each request to api.switch402.com"

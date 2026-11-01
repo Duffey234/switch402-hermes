@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=75,<82"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "switch402-hermes"
+version = "0.1.0"
+description = "switch402 web data tools for Hermes Agent, paid per call with x402 (USDC on Base)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "switch402"}]
+keywords = ["hermes-agent", "x402", "usdc", "base", "scrape", "markdown", "screenshot", "search"]
+dependencies = [
+  # Signs the EIP-3009 USDC authorization locally. Oldest API-compatible floor, upper-bounded.
+  "eth-account>=0.10.0,<0.15",
+]
+
+[project.urls]
+Homepage = "https://switch402.com"
+Repository = "https://github.com/Duffey234/switch402-hermes"
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[tool.setuptools]
+py-modules = ["client", "gate", "handlers", "routes", "schemas"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
